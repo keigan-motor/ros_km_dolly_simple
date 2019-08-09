@@ -1,0 +1,15 @@
+<launch>
+
+<arg name="connect_mode" value="ble" />
+<arg name="right_w_addr" value="cf:16:a5:90:69:7a" />
+<arg name="left_w_addr" value="f1:c4:9d:69:cf:48" />
+
+<node pkg="km_dolly" name="km_dolly_wheels" type="km_wheels.py">
+  <param name="connect_mode" value="$(arg connect_mode)" />
+  <param name="right_w_addr" value="$(arg right_w_addr)" />
+  <param name="left_w_addr" value="$(arg left_w_addr)" />
+</node>
+<node pkg="km_dolly" name="km_dolly_joy" type="km_teleop_joy.py" />
+
+<node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard_node" output="screen"/>
+</launch>
