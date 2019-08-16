@@ -258,8 +258,12 @@ class KMWheels:
     def teleop_callback(self,data):
         linear_speed = LINEAR_RATIO*data.linear.x
         angular_speed = ANGULAR_RATIO*data.angular.z
-        self.right_velocity = linear_speed / D_RIGHT + angular_speed / (TREAD/D_RIGHT/2)
-        self.left_velocity = linear_speed / D_LEFT - angular_speed / (TREAD/D_LEFT/2)
+        new_right_velocity = linear_speed / D_RIGHT + angular_speed / (TREAD/D_RIGHT/2)
+        new_left_velocity = linear_speed / D_LEFT - angular_speed / (TREAD/D_LEFT/2)
+        if self.right_velocity != new_right_velocity or self.left_velocity != new_left_velocity:
+            self.right_velocity = new_right_velocity
+            self.left_velocity = new_left_velocity
+            km_wheels.run_ctrl_cmd()
 
     def run_ctrl_cmd(self):
         if self.left_velocity!=0:
@@ -302,8 +306,7 @@ def km_wheels_main():
     while not rospy.is_shutdown():
         km_wheels.pubimu()
         km_wheels.pubodo()
-        km_wheels.run_ctrl_cmd()
         sleep(SLEEP_TIME)
-        
+
 if __name__=='__main__':
     km_wheels_main()
