@@ -263,7 +263,7 @@ class KMWheels:
         if self.right_velocity != new_right_velocity or self.left_velocity != new_left_velocity:
             self.right_velocity = new_right_velocity
             self.left_velocity = new_left_velocity
-            km_wheels.run_ctrl_cmd()
+            self.run_ctrl_cmd()
 
     def run_ctrl_cmd(self):
         if self.left_velocity!=0:
