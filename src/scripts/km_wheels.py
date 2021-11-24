@@ -293,6 +293,7 @@ class KMWheels:
         # atexit.register()#修了イベントバインド
 
 def km_wheels_main():
+    km_wheels=None
     rospy.init_node('km_wheels', anonymous = True)
     for k in range(10):
         try:
